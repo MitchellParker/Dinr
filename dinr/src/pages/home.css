@@ -1,0 +1,21 @@
+.home {
+    margin-left: 200px;
+    text-align: center;
+}
+.home_header {
+    border-style: solid;
+    border-width: 1px;
+    padding: 25px;
+}
+.home_mealPeriod {
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+}
+.home_dropdown {
+    width: 20%;
+    margin-left: 40%;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
+}

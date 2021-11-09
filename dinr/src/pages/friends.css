@@ -1,0 +1,43 @@
+.friends {
+    margin-left: 200px;
+}
+.friends_searchBar {
+    text-align: right;
+    padding-right: 15px;
+    margin: 20px 20px 40px 50%;
+    border-style: solid;
+    border-width: 1px;
+}
+.friends_yourChoices {
+    width: 33%;
+    float: left;
+}
+.friends_yourChoicesLabel {
+    text-align: right;
+    padding: 10px 30% 10px 10px;
+    margin: 0px;
+    border-style: solid;
+    border-width: 1px;
+}
+.friends_mealPeriod {
+    text-align: left;
+    border-style: solid;
+    border-width: 1px;
+    height: 150px;
+    padding: 10px;
+    margin: 0px;
+}
+.friends_friendChoices {
+    width: 67%;
+    float: left;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.friends_friendChoicesLabel {
+    text-align: left;
+    padding: 10px 10px 10px 10%;
+    margin: 0px;
+    border-style: solid;
+    border-width: 1px;
+}
