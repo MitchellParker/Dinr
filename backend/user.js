@@ -9,7 +9,8 @@ const UserSchema = new Schema({
     lunch: String,
     dinner: String,
     friendlist: Array
-    
+},  {
+    versionKey: false
 })
 
 module.exports = mongoose.model('user', UserSchema);

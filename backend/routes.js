@@ -8,10 +8,24 @@ router.get("/users", (req, res) => {
         if (!err) {
             res.status(200).send(data);
         } else {
+            res.status(500).send(err);
             console.log(err);
         }
     });
 });
+
+router.post("/users", (req, res) => {
+    const user = req.body;
+
+    User.create(user, (err, data) => {
+        if (!err) {
+            res.status(201).send(data);
+        } else {
+            res.status(500).send(err);
+            console.log(err);
+        }
+    })
+})
 
 router.post("/register", (req, res) => {})
 
