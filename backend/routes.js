@@ -1,5 +1,5 @@
 const express = require ('express');
-const Supporter = require("./user");
+const User = require("./user");
 const mongo = require('mongodb');
 const router = express.Router();
 
