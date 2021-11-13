@@ -12,6 +12,6 @@ router.get('/fetch/', function(req, res) {})
 
 //router.put('/update', cookieAuth, function(req, res) {})
 
-//router.delete("/delete/:", function (req, res) {})
+router.delete("/delete/:", function (req, res) {})
 
 module.exports = router;
