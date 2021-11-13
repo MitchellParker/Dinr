@@ -27,16 +27,12 @@ router.post("/users", (req, res) => {
     })
 })
 
-router.post("/register", (req, res) => {})
+router.post("/register", (req, res) => {}) // create account
 
-router.get('/fetchAll', function(req, res) {})
+router.get('/fetch/:nickname', function(req, res) { }) // add friends
 
-router.get('/fetch/:nickname', function(req, res) { })
+//router.put('/update', cookieAuth, function(req, res) {}) // update account
 
-router.get('/fetch/', function(req, res) {})
-
-//router.put('/update', cookieAuth, function(req, res) {})
-
-router.delete("/delete/:", function (req, res) {})
+router.delete("/delete/:", function (req, res) {}) // delete account
 
 module.exports = router;
