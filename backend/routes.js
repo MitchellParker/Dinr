@@ -11,9 +11,9 @@ router.get('/fetch/:nickname', function(req, res) { })
 
 router.get('/fetch/', function(req, res) {})
 
-router.put('/update', cookieAuth, function(req, res) {})
+//router.put('/update', cookieAuth, function(req, res) {})
 
-router.delete("/delete/:", function (req, res) {})
+//router.delete("/delete/:", function (req, res) {})
 
 
 
