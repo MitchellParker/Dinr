@@ -2,7 +2,7 @@ const mongoose = require ('mongoose');
 
 const Schema = mongoose.Schema;
 
-const SupporterSchema = new Schema({
+const UserSchema = new Schema({
     nickname: String, //need some unique identifier to check for account duplicates   
     password: String,  //
     breakfast: String,
@@ -12,4 +12,4 @@ const SupporterSchema = new Schema({
     
 })
 
-module.exports = mongoose.model('supporter', SupporterSchema);
+module.exports = mongoose.model('user', UserSchema);
