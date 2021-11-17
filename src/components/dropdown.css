@@ -1,0 +1,10 @@
+.dropdown_menu {
+    border-style: solid;
+    border-width: 1;
+    width: 20%;
+    margin-left: 40%;
+}
+.dropdown_button {
+    display: block;
+    margin: 0 auto;
+}
