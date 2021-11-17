@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const routes = require("./routes");
 const connectDB = require("./db");
+const bodyParser = require('body-parser');
 
 // Users: admin, password: hunter2
 
@@ -9,9 +10,13 @@ const connectDB = require("./db");
 const app = express();
 const port = process.env.PORT || 3000;
 
+
 // Middlewares
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/', routes);
+
+
 
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(function (req, res, next) {
