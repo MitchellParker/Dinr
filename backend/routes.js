@@ -11,10 +11,7 @@ app.use(express.urlencoded({ extended: true}));
 // API Endpoints
 
 router.post("/register", (req, res) => {
-   // var data = req.body;
-    console.log(req.body);
-    console.log(req.body[0].dinner);
-    console.log(req.body[0].nickname);
+   
     User.findOne({
         $or:
             [{"nickname":req.body[0].nickname}]
@@ -100,11 +97,10 @@ router.delete('/delete/:nickname', function(req, res) {
 
     User.remove({ nickname: req.params.nickname.substring(1) }, function(err) {
         if (!err) {
-            console.log(req.params.nickname);
+         
             return res.send('User deleted!');
         } else {
-            console.log(req.params.nickname);
-            return res.send('Error deleting user!');
+             return res.send('Error deleting user!');
         }
     });
 
