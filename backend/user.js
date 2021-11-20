@@ -8,6 +8,9 @@ const UserSchema = new Schema({
     breakfast: String,
     lunch: String,
     dinner: String,
+    breakfastTime: String,
+    lunchTime: String,
+    dinnerTime: String,
     friendlist: Array
 },  {
     versionKey: false
