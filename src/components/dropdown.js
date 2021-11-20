@@ -13,7 +13,24 @@ class DropdownButton extends Component {
   }
 
   sendOption(event) {
-    console.log(this.state.option);
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nickname: "John",   
+        password: "Doe",
+        breakfast: "",
+        lunch: "",
+        dinner: "",
+        breakfastTime: "",
+        lunchTime: "",
+        dinnerTime: "",
+        friendlist: []
+      })
+    });
   }
 
   render() {

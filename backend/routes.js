@@ -14,24 +14,24 @@ router.post("/register", (req, res) => {
    
     User.findOne({
         $or:
-            [{"nickname":req.body[0].nickname}]
+            [{"nickname":req.body.nickname}]
     }).then(user => {
         if (user) {    
                   
             return res.status(202).send({
               //  message: "This user already exists!",
-                message: req.body[0].nickname,
+                message: req.body.nickname,
                message: "This user already exists!"
             })
         }
 
         const newUser = new User({
-            nickname: req.body[0].nickname,
-            password: req.body[0].password,
-            breakfast:req.body[0].breakfast,
-            lunch:req.body[0].lunch,
-            dinner:req.body[0].dinner,
-            friendlist:req.body[0].friendlist
+            nickname: req.body.nickname,
+            password: req.body.password,
+            breakfast:req.body.breakfast,
+            lunch:req.body.lunch,
+            dinner:req.body.dinner,
+            friendlist:req.body.friendlist
         }) //making sure our user input is in the right format
     
         newUser.save()
