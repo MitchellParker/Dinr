@@ -1,4 +1,4 @@
-.container {
+.navbar_container {
     height: 100%;
     width: 200px;
     position: fixed;
@@ -8,7 +8,7 @@
     overflow-x: hidden;
     background-color: black;
 }
-.button {
+.navbar_button {
     padding: 10px;
     margin: 20px;
     border-style: solid;
@@ -16,6 +16,6 @@
     background-color: white;
     list-style-type: none;
 }
-.link {
+.navbar_link {
     color: black;
 }
