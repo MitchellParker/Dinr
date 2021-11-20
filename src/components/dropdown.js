@@ -1,6 +1,47 @@
 import React, { Component } from 'react';
 import './dropdown.css';
 
+
+class DropdownButton extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      option: props.option
+    };
+
+    this.handleClick = this.sendOption.bind(this);
+  }
+
+  sendOption(event) {
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nickname: "John",   
+        password: "Doe",
+        breakfast: "",
+        lunch: "",
+        dinner: "",
+        breakfastTime: "",
+        lunchTime: "",
+        dinnerTime: "",
+        friendlist: []
+      })
+    });
+  }
+
+  render() {
+    return (
+    <button
+      onClick={this.handleClick}
+      className="dropdown_button"> {this.state.option}
+    </button>
+    )
+  };
+}
 class Dropdown extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +61,7 @@ class Dropdown extends Component {
     });
   }
 
+
   render() {
     return (
       <div>
@@ -32,7 +74,7 @@ class Dropdown extends Component {
             ? (
               <div className="dropdown_menu">
                   {this.props.options.map((option) => 
-                    <button className="dropdown_button"> {option} </button>
+                    <DropdownButton option={option} />
                   )}
               </div>
             )
