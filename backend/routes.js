@@ -26,7 +26,7 @@ router.post("/register", (req, res) => {
         }
 
         const newUser = new User({
-<<<<<<< HEAD
+           
             nickname: req.body[0].nickname,
             password: req.body[0].password,
             breakfast: req.body[0].breakfast,
@@ -36,14 +36,7 @@ router.post("/register", (req, res) => {
             lunchTime: req.body[0].lunchTime,
             dinnerTime: req.body[0].dinnerTime,
             friendlist:req.body[0].friendlist
-=======
-            nickname: req.body.nickname,
-            password: req.body.password,
-            breakfast:req.body.breakfast,
-            lunch:req.body.lunch,
-            dinner:req.body.dinner,
-            friendlist:req.body.friendlist
->>>>>>> 1080c379207cdedcb976dd263b21dd648204aac0
+
         }) //making sure our user input is in the right format
     
         newUser.save()
