@@ -3,9 +3,9 @@ const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    _id:mongoose.Schema.Types.ObjectId,
-    nickname: String, //need some unique identifier to check for account duplicates   
-    password: String,  //
+    //_id:mongoose.Schema.Types.ObjectId, // not working with current implementation
+    nickname: String,  
+    password: String,
     breakfast: String,
     lunch: String,
     dinner: String,

@@ -1,44 +1,38 @@
 const express = require ('express');
-const router = express.Router();
-const mongo = require('mongodb');
-const bodyParser = require('body-parser'); 
+const app = express(); 
+const router = express.Router(); 
 const User = require('./user');
 
+// Middleware
+app.use(express.json) 
 
-const app = express(); 
-app.use(bodyParser.json) 
-app.use(express.urlencoded({ extended: true})); 
 // API Endpoints
-
 router.post("/register", (req, res) => {
-   
     User.findOne({
         $or:
-            [{"nickname":req.body.nickname}]
+            [{ "nickname": req.body.nickname }]
     }).then(user => {
-        if (user) {    
-                  
+        if (user) {
+
             return res.status(202).send({
-              //  message: "This user already exists!",
+                //  message: "This user already exists!",
                 message: req.body.nickname,
-               message: "This user already exists!"
+                message: "This user already exists!"
             })
         }
 
         const newUser = new User({
-           
-            nickname: req.body[0].nickname,
-            password: req.body[0].password,
-            breakfast: req.body[0].breakfast,
-            lunch: req.body[0].lunch,
-            dinner: req.body[0].dinner,
-            breakfastTime: req.body[0].breakfastTime,
-            lunchTime: req.body[0].lunchTime,
-            dinnerTime: req.body[0].dinnerTime,
-            friendlist:req.body[0].friendlist
-
+            nickname: req.body.nickname,
+            password: req.body.password,
+            breakfast: req.body.breakfast,
+            lunch: req.body.lunch,
+            dinner: req.body.dinner,
+            breakfastTime: req.body.breakfastTime,
+            lunchTime: req.body.lunchTime,
+            dinnerTime: req.body.dinnerTime,
+            friendlist: req.body.friendlist
         }) //making sure our user input is in the right format
-    
+
         newUser.save()
             .catch(err => {
                 return res.status(500).json({
@@ -46,22 +40,19 @@ router.post("/register", (req, res) => {
                     error: err
                 })
             });
-
-        res.json(201, newUser);
+        res.status(201).json(newUser);
     })
-
 });
 
-router.get('/fetch/', function(req, res) {
-    console.log(req );
-    User.findOne({$or: [ {nickname: req.query.nickname } ]}) // fetch by nickname
-    .then((result) => {
-        res.send(result);
-    })
-    .catch((err) => {
-        res.send(err);
-    })
-
+router.get('/fetch/', function (req, res) {
+    console.log(req);
+    User.findOne({ $or: [{ nickname: req.query.nickname }] }) // fetch by nickname
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            res.send(err);
+        })
 });
 
 router.get("/fetchAll", (req, res) => {
@@ -76,83 +67,73 @@ router.get("/fetchAll", (req, res) => {
 });
 
 
-router.get('/fetch/:id', function(req, res) { //Fetch By Id
-    console.log(req );
+router.get('/fetch/:id', function (req, res) { //Fetch By Id
     User.findById(req.params.id.substring(1))
-    .then((result) => {
-        res.send(result);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 });
 
 router.put('/update/:id', (req, res, next) => {
-console.log(req.params.id);
-User.findOneAndUpdate({_id:req.params.id.substring(1)},{
-$set:{
-            nickname: req.body[0].nickname,
-            password: req.body[0].password,
-            breakfast: req.body[0].breakfast,
-            lunch: req.body[0].lunch,
-            dinner: req.body[0].dinner,
-            breakfastTime: req.body[0].breakfastTime,
-            lunchTime: req.body[0].lunchTime,
-            dinnerTime: req.body[0].dinnerTime,
-            friendlist:req.body[0].friendlist
-}
-})
-.then (result=>{
-    res.status(200).json({
-        updated_user:result
+    User.findOneAndUpdate({ _id: req.params.id.substring(1) }, {
+        $set: {
+            nickname: req.body.nickname,
+            password: req.body.password,
+            breakfast: req.body.breakfast,
+            lunch: req.body.lunch,
+            dinner: req.body.dinner,
+            breakfastTime: req.body.breakfastTime,
+            lunchTime: req.body.lunchTime,
+            dinnerTime: req.body.dinnerTime,
+            friendlist: req.body.friendlist
+        }
     })
-
-})
-.catch(err=>{
-    console.log(err);
-    res.status(500).json({
-    error:err
-    })
-})
-}) ;
-
-
-router.delete('/delete/:id', (req,res,next)=> {
-    User.remove({_id:req.params.id.substring(1)})
-    .then(result=>{
-    res.status(200).json({
-    message: 'User deleted',
-    result:result
-        })
-     })
-     .catch(err=>{
-         res.status(500).json({
-             error:err
-         })
-     })
-    });
-
-    router.delete('/deleteByName/:nickname', (req,res,next)=> {
-        User.remove({nickname:req.params.nickname.substring(1)})
-        .then(result=>{
-        res.status(200).json({
-        message: 'User deleted',
-        result:result
+        .then(result => {
+            res.status(200).json({
+                updated_user: result
             })
-         })
-         .catch(err=>{
-             res.status(500).json({
-                 error:err
-             })
-         })
-        });
 
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        })
+});
+
+
+router.delete('/delete/:id', (req, res, next) => {
+    User.remove({ _id: req.params.id.substring(1) })
+        .then(result => {
+            res.status(200).json({
+                message: 'User deleted',
+                result: result
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            })
+        })
+});
+
+router.delete('/deleteByName/:nickname', (req, res, next) => {
+    User.remove({ nickname: req.params.nickname.substring(1) })
+        .then(result => {
+            res.status(200).json({
+                message: 'User deleted',
+                result: result
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            })
+        })
+});
 
 module.exports = router;
-
-
-
-
-
-
-
