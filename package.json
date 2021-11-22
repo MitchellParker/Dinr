@@ -2,11 +2,19 @@
   "name": "dinr",
   "version": "0.1.0",
   "private": true,
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
   "dependencies": {
     "@popperjs/core": "^2.10.2",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mongoose": "^6.0.12",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
