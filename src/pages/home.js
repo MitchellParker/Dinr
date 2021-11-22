@@ -16,18 +16,18 @@ const Home = () =>{
                 <h2 className='home_header'>Dinr: Bruin Meal Planner</h2>
                 <div className='home_mealPeriod'>
                     <p>Breakfast</p>
-                    <Dropdown title='Choose a dining location' options={breakfastOptions}/>
-                    <Dropdown title='Choose a time' options={breakfastTimes}/>
+                    <Dropdown optionType="breakfast" title='Choose a dining location' options={breakfastOptions}/>
+                    <Dropdown optionType="breakfastTime" title='Choose a time' options={breakfastTimes}/>
                 </div>
                 <div className='home_mealPeriod'>
                     <p>Lunch</p>
-                    <Dropdown title='Choose a dining location' options={lunchOptions}/>
-                    <Dropdown title='Choose a time' options={lunchTimes}/>
+                    <Dropdown optionType="lunch" title='Choose a dining location' options={lunchOptions}/>
+                    <Dropdown optionType="lunchTime" title='Choose a time' options={lunchTimes}/>
                 </div>
                 <div className='home_mealPeriod'>
                     <p>Dinner</p>
-                    <Dropdown title='Choose a dining location' options={dinnerOptions}/>
-                    <Dropdown title='Choose a time' options={dinnerTimes}/>
+                    <Dropdown optionType="dinner" title='Choose a dining location' options={dinnerOptions}/>
+                    <Dropdown optionType="dinnerTime" title='Choose a time' options={dinnerTimes}/>
                 </div>
             </div>
         </body>

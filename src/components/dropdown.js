@@ -6,21 +6,23 @@ class DropdownButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      option: props.option
+      option: props.option,
+      optionType: props.optionType
     };
 
+    //this.handleClick = this.register.bind(this);
     this.handleClick = this.sendOption.bind(this);
   }
 
-  sendOption(event) {
-    fetch('/register', {
+  register(event) {
+    fetch('/auth', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        nickname: "John",   
+        nickname: "Bob",   
         password: "Doe",
         breakfast: "",
         lunch: "",
@@ -29,6 +31,20 @@ class DropdownButton extends Component {
         lunchTime: "",
         dinnerTime: "",
         friendlist: []
+      })
+    });
+  }
+
+  sendOption(event) {
+    fetch('/update/:id', {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nickname: "John",
+        [this.state.optionType]: this.state.option 
       })
     });
   }
@@ -74,7 +90,7 @@ class Dropdown extends Component {
             ? (
               <div className="dropdown_menu">
                   {this.props.options.map((option) => 
-                    <DropdownButton option={option} />
+                    <DropdownButton option={option} optionType={this.props.optionType}/>
                   )}
               </div>
             )

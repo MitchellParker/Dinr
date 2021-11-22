@@ -1,12 +1,27 @@
 const express = require ('express');
-const app = express(); 
 const router = express.Router(); 
 const User = require('./user');
 
-// Middleware
-app.use(express.json) 
-
 // API Endpoints
+router.post('/auth', (req, res) => {
+	var nickname = req.body.nickname;
+	var password = req.body.password;
+    console.log(req.body)
+	if (nickname && password) {
+		User.findOne({ $and: [{ nickname: nickname, password: password}] }) // fetch by nickname
+        .then((result) => {
+            console.log("hi" + result);
+			req.session.loggedin = true;
+			req.session.nickname = nickname;
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+	} else {
+		console.log('Please enter Username and Password!');
+	}
+});
+
 router.post("/register", (req, res) => {
     User.findOne({
         $or:
@@ -78,7 +93,7 @@ router.get('/fetch/:id', function (req, res) { //Fetch By Id
 });
 
 router.put('/update/:id', (req, res, next) => {
-    User.findOneAndUpdate({ _id: req.params.id.substring(1) }, {
+    User.findOneAndUpdate({ nickname: req.body.nickname }, {
         $set: {
             nickname: req.body.nickname,
             password: req.body.password,

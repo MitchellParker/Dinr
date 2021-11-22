@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require('express-session')
 const path = require("path");
 const routes = require("./routes");
 const connectDB = require("./db");
@@ -12,6 +13,11 @@ const port = process.env.PORT || 3000;
 
 
 // Middlewares
+app.use(session({
+  secret: "Shh",
+  saveUninitialized: true,
+  resave: true
+}))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/', routes);
