@@ -3,20 +3,38 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/navbar';
 import Home from './pages/home';
 import Friends from './pages/friends';
-import LogIn from './pages/login';
+import Login from './pages/login';
 import SignOut from './pages/signout';
+import { AuthProvider, } from './useAuth';
+import RequireAuth from './components/requireAuth';
 
 function App() {
   return (
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/friends' element={<Friends />} />
-        <Route path='/login' element={<LogIn />} />
-        <Route path='/signout' element={<SignOut />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/friends"
+            element={
+              <RequireAuth>
+                <Friends />
+              </RequireAuth>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signout" element={<SignOut />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
