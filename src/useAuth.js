@@ -10,10 +10,14 @@ function useAuth() {
     authed, user, pass,
     login(username, password) {
       return new Promise((res) => {
-        setAuthed(true);
-        setUser(username);
-        setPass(password);
-        res();
+        getBackendAuth(username, password).then((backendRes) => {
+          if (backendRes.authed) {
+            setAuthed(true);
+            setUser(username);
+            setPass(password);
+          }
+          res(backendRes);
+        });
       });
     },
     logout() {
@@ -25,6 +29,21 @@ function useAuth() {
       });
     }
   };
+}
+
+async function getBackendAuth(username, password) {
+  const res = await fetch('/auth', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      nickname: username,   
+      password: password,
+    })
+  });
+  return res.json()
 }
 
 export function AuthProvider({ children }) {

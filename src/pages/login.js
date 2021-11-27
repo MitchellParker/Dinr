@@ -10,16 +10,39 @@ class LoginForm extends React.Component {
     this.state = {
       username: "",
       password: "",
+      message: "",
     };
 
     this.updateUsername = this.updateUsername.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);  
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
   }
 
-  register(event) {
-    console.log("data sent")
-    fetch('/register', {
+  
+  updateUsername(event) {
+    this.setState({ username: event.target.value });
+  }
+  updatePassword(event) {
+    this.setState({ password: event.target.value });
+  }
+  handleLogin(event) {
+    this.props.onLogin(this.state.username, this.state.password).then(res => {
+      if (!res.authed) {
+        this.setState({
+          message: res.message
+        })
+      }
+    });
+  }
+  async handleRegister(event) {
+    if (this.state.username === "" || this.state.password === "") {
+      this.setState({
+        message: "Enter a username and password to create your account"
+      })
+      return
+    }
+    const res = await fetch('/register', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -27,27 +50,12 @@ class LoginForm extends React.Component {
       },
       body: JSON.stringify({
         nickname: this.state.username,   
-        password: this.state.password,
-        breakfast: "",
-        lunch: "",
-        dinner: "",
-        breakfastTime: "",
-        lunchTime: "",
-        dinnerTime: "",
-        friendlist: []
+        password: this.state.password
       })
-    });
-  }
-
-  updateUsername(event) {
-    this.setState({ username: event.target.value });
-  }
-  updatePassword(event) {
-    this.setState({ password: event.target.value });
-  }
-  handleSubmit(event) {
-    this.register();
-    this.props.onSubmit(this.state.username, this.state.password);
+    }).then(res => res.json());
+    this.setState({
+      message: res.message
+    })
   }
 
   render() {
@@ -71,7 +79,12 @@ class LoginForm extends React.Component {
           />
         </label>
         <br />
-        <input type="submit" value="Login" onClick={this.handleSubmit} />
+        <input type="submit" value="Login" onClick={this.handleLogin} />
+        <input type="submit" value="Create Account" onClick={this.handleRegister} />
+        <br />
+        <div>
+          <p>{this.state.message}</p>
+        </div>
       </div>
     );
   }
@@ -85,7 +98,7 @@ const Login = () => {
     <body className="login">
       <h1> Welcome to Dinr! </h1>
       <br />
-      <LoginForm onSubmit={login} />
+      <LoginForm onLogin={login} />
     </body>
   );
 };

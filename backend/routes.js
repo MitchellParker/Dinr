@@ -6,19 +6,30 @@ const User = require('./user');
 router.post('/auth', (req, res) => {
 	var nickname = req.body.nickname;
 	var password = req.body.password;
-    console.log(req.body)
+    // console.log(req.body)
 	if (nickname && password) {
 		User.findOne({ $and: [{ nickname: nickname, password: password}] }) // fetch by nickname
         .then((result) => {
-            console.log("hi" + result);
-			req.session.loggedin = true;
-			req.session.nickname = nickname;
+            if (!result) {
+                res.json({
+                    authed: false,
+                    message: "Invalid username or password",
+                });
+            } else {
+                res.json({
+                    authed: true,
+                    message: "Login successful"
+                });
+            }
         })
         .catch((err) => {
             console.log(err);
         })
 	} else {
-		console.log('Please enter Username and Password!');
+		res.json({
+            authed: false,
+            message: "Please enter username and password!"
+        });
 	}
 });
 
@@ -30,8 +41,8 @@ router.post("/register", (req, res) => {
         if (user) {
 
             return res.status(202).send({
-                //  message: "This user already exists!",
-                message: req.body.nickname,
+                // message: "This user already exists!",
+                // message: req.body.nickname,
                 message: "This user already exists!"
             })
         }
@@ -39,13 +50,13 @@ router.post("/register", (req, res) => {
         const newUser = new User({
             nickname: req.body.nickname,
             password: req.body.password,
-            breakfast: req.body.breakfast,
-            lunch: req.body.lunch,
-            dinner: req.body.dinner,
-            breakfastTime: req.body.breakfastTime,
-            lunchTime: req.body.lunchTime,
-            dinnerTime: req.body.dinnerTime,
-            friendlist: req.body.friendlist
+            breakfast: "",
+            lunch: "",
+            dinner: "",
+            breakfastTime: "",
+            lunchTime: "",
+            dinnerTime: "",
+            friendlist: []
         }) //making sure our user input is in the right format
 
         newUser.save()
