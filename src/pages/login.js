@@ -17,6 +17,28 @@ class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);  
   }
 
+  register(event) {
+    console.log("data sent")
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nickname: this.state.username,   
+        password: this.state.password,
+        breakfast: "",
+        lunch: "",
+        dinner: "",
+        breakfastTime: "",
+        lunchTime: "",
+        dinnerTime: "",
+        friendlist: []
+      })
+    });
+  }
+
   updateUsername(event) {
     this.setState({ username: event.target.value });
   }
@@ -24,6 +46,7 @@ class LoginForm extends React.Component {
     this.setState({ password: event.target.value });
   }
   handleSubmit(event) {
+    this.register();
     this.props.onSubmit(this.state.username, this.state.password);
   }
 

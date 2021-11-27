@@ -14,27 +14,6 @@ class DropdownButton extends Component {
     this.handleClick = this.sendOption.bind(this);
   }
 
-  register(event) {
-    fetch('/auth', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        nickname: "Bob",   
-        password: "Doe",
-        breakfast: "",
-        lunch: "",
-        dinner: "",
-        breakfastTime: "",
-        lunchTime: "",
-        dinnerTime: "",
-        friendlist: []
-      })
-    });
-  }
-
   sendOption(event) {
     fetch('/update/:id', {
       method: 'PUT',
