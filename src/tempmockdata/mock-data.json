@@ -1,0 +1,61 @@
+[{
+    "id": 1,
+    "friend": "Drucill",
+    "breakfast": "Genet, common",
+    "lunch": "Gull, herring",
+    "dinner": "Puma"
+  }, {
+    "id": 2,
+    "friend": "Miof mela",
+    "breakfast": "Wild boar",
+    "lunch": "Whip-tailed wallaby",
+    "dinner": "Baboon, olive"
+  }, {
+    "id": 3,
+    "friend": "Johannes",
+    "breakfast": "Spurfowl, yellow-necked",
+    "lunch": "Fork-tailed drongo",
+    "dinner": "Bat, madagascar fruit"
+  }, {
+    "id": 4,
+    "friend": "Noland",
+    "breakfast": "Fork-tailed drongo",
+    "lunch": "Toucan, red-billed",
+    "dinner": "Fox, bat-eared"
+  }, {
+    "id": 5,
+    "friend": "Jeni",
+    "breakfast": "Dassie",
+    "lunch": "Tyrant flycatcher",
+    "dinner": "Tyrant flycatcher"
+  }, {
+    "id": 6,
+    "friend": "Rayna",
+    "breakfast": "Pelican, australian",
+    "lunch": "Bleu, blue-breasted cordon",
+    "dinner": "Mocking cliffchat"
+  }, {
+    "id": 7,
+    "friend": "Georg",
+    "breakfast": "White-necked stork",
+    "lunch": "Raccoon dog",
+    "dinner": "Trumpeter, green-winged"
+  }, {
+    "id": 8,
+    "friend": "Ephrayim",
+    "breakfast": "Booby, blue-footed",
+    "lunch": "Nuthatch, red-breasted",
+    "dinner": "Black-crowned crane"
+  }, {
+    "id": 9,
+    "friend": "Cynde",
+    "breakfast": "White-eye, pale",
+    "lunch": "Rhesus monkey",
+    "dinner": "Blacksmith plover"
+  }, {
+    "id": 10,
+    "friend": "Jerrie",
+    "breakfast": "Duiker, gray",
+    "lunch": "Pelican, great white",
+    "dinner": "Goose, canada"
+  }]
