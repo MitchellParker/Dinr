@@ -1,13 +1,7 @@
 .friends {
     margin-left: 200px;
 }
-.friends_searchBar {
-    text-align: right;
-    padding-right: 15px;
-    margin: 20px 20px 40px 50%;
-    border-style: solid;
-    border-width: 1px;
-}
+
 .friends_yourChoices {
     width: 33%;
     float: left;
@@ -19,6 +13,48 @@
     border-style: solid;
     border-width: 1px;
 }
+
+.friends_mealPeriod {
+    text-align: left;
+    border-style: solid;
+    border-width: 1px;
+    height: 150px;
+    padding: 10px;
+    margin: 0px;
+}
+
+.friendschoice{
+    display: flex;
+    overflow-x: scroll;
+    flex-direction: row;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .indfriend{
+    text-align: left;
+    margin: 3px;
+    flex-shrink: 0;
+    width: 20rem;
+    padding-left: 10px;
+    float: left
+  }
+  
+  .box {
+    border-style: solid;
+      border-width: 1px;
+      height: 150px;
+      padding: 10px;
+      margin: 0px;
+  }
+/*
+  .friends_searchBar {
+    text-align: right;
+    padding-right: 15px;
+    margin: 20px 20px 40px 50%;
+    border-style: solid;
+    border-width: 1px;
+}
+
 .friends_mealPeriod {
     text-align: left;
     border-style: solid;
@@ -28,11 +64,14 @@
     margin: 0px;
 }
 .friends_friendChoices {
-    width: 67%;
+    width: 100px;
+    
     float: left;
-    overflow-x: scroll;
+    
     overflow-y: hidden;
+    
     white-space: nowrap;
+    
 }
 .friends_friendChoicesLabel {
     text-align: left;
@@ -41,3 +80,4 @@
     border-style: solid;
     border-width: 1px;
 }
+*/
