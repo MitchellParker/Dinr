@@ -6,7 +6,6 @@ const User = require('./user');
 router.post('/auth', (req, res) => {
 	var nickname = req.body.nickname;
 	var password = req.body.password;
-    // console.log(req.body)
 	if (nickname && password) {
 		User.findOne({ $and: [{ nickname: nickname, password: password}] }) // fetch by nickname
         .then((result) => {
@@ -71,7 +70,8 @@ router.post("/register", (req, res) => {
 });
 
 
-// fetch by nickname
+
+// fetch by nickname (/fetch/?nickname=blue)
 router.get('/fetch/', function (req, res) {
      User.findOne({ $or: [{ nickname: req.query.nickname }] }) 
         .then((result) => {
@@ -79,6 +79,16 @@ router.get('/fetch/', function (req, res) {
         })
         .catch((err) => {
             res.send(err);
+        })
+});
+//Fetch By Id, to fetch person dining and time choices 
+router.get('/fetchbyid/:id', function (req, res) { 
+    User.findById(req.params.id.substring(1))
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log(err);
         })
 });
 
@@ -93,24 +103,10 @@ router.get('/fetchfriends/', function (req, res) {
        })
 });
 
-//Fetch By Id, to fetch person dining and time choices 
-router.get('/fetch/:id', function (req, res) { 
-    console.log(req.params.id);
-    console.log(req.body.nickname);
-    User.findById(req.params.id.substring(1))
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-});
 
 
 // update the choices using id
 router.put('/updatechoices/:id', (req, res, next) => {
-    console.log(req.params.id);
-    console.log(req.body.breakfast);
     User.findOneAndUpdate({id :req.params.id.substring(1)}, {
         $set: {
             breakfast: req.body.breakfast,
