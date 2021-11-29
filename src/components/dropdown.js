@@ -22,7 +22,7 @@ class DropdownButton extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        nickname: "John",
+        nickname: this.props.user,
         [this.state.optionType]: this.state.option 
       })
     });
@@ -69,7 +69,7 @@ class Dropdown extends Component {
             ? (
               <div className="dropdown_menu">
                   {this.props.options.map((option) => 
-                    <DropdownButton option={option} optionType={this.props.optionType}/>
+                    <DropdownButton option={option} optionType={this.props.optionType} user={this.props.user}/>
                   )}
               </div>
             )
