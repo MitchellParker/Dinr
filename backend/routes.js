@@ -70,9 +70,10 @@ router.post("/register", (req, res) => {
     })
 });
 
+
+// fetch by nickname
 router.get('/fetch/', function (req, res) {
-    console.log(req);
-    User.findOne({ $or: [{ nickname: req.query.nickname }] }) // fetch by nickname
+     User.findOne({ $or: [{ nickname: req.query.nickname }] }) 
         .then((result) => {
             res.send(result);
         })
@@ -81,19 +82,21 @@ router.get('/fetch/', function (req, res) {
         })
 });
 
-router.get("/fetchAll", (req, res) => {
-    User.find({}, (err, data) => {
-        if (!err) {
-            res.status(200).send(data);
-        } else {
-            res.status(500).send(err);
-            console.log(err);
-        }
-    });
+// fetch friends-list using nickname ( /fetchfriends/?nickname=blue)
+router.get('/fetchfriends/', function (req, res) {
+    User.findOne({ $or: [{ nickname: req.query.nickname }] }) 
+       .then((result) => {
+           res.send(result.friendlist);
+       })
+       .catch((err) => {
+           res.send(err);
+       })
 });
 
-
-router.get('/fetch/:id', function (req, res) { //Fetch By Id
+//Fetch By Id, to fetch person dining and time choices 
+router.get('/fetch/:id', function (req, res) { 
+    console.log(req.params.id);
+    console.log(req.body.nickname);
     User.findById(req.params.id.substring(1))
         .then((result) => {
             res.send(result);
@@ -103,18 +106,42 @@ router.get('/fetch/:id', function (req, res) { //Fetch By Id
         })
 });
 
-router.put('/update/:id', (req, res, next) => {
-    User.findOneAndUpdate({ nickname: req.body.nickname }, {
+
+// update the choices using id
+router.put('/updatechoices/:id', (req, res, next) => {
+    console.log(req.params.id);
+    console.log(req.body.breakfast);
+    User.findOneAndUpdate({id :req.params.id.substring(1)}, {
         $set: {
-            nickname: req.body.nickname,
-            password: req.body.password,
             breakfast: req.body.breakfast,
             lunch: req.body.lunch,
             dinner: req.body.dinner,
             breakfastTime: req.body.breakfastTime,
             lunchTime: req.body.lunchTime,
             dinnerTime: req.body.dinnerTime,
-            friendlist: req.body.friendlist
+        }
+    })
+        .then(result => {
+            res.status(200).json({
+                updated_user: result
+            })
+
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        })
+});
+
+
+// update the friendlist using id
+router.put('/updatefriends/:id', (req, res, next) => {
+
+    User.findOneAndUpdate({id :req.params.id.substring(1)}, {
+        $set: {
+          friendlist: req.body.friendlist
         }
     })
         .then(result => {
