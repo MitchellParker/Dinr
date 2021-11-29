@@ -115,9 +115,9 @@ router.get('/fetchfriends/', function (req, res) {
 
 
 
-// update the choices using id
-router.put('/updatechoices/:id', (req, res, next) => {
-    User.findOneAndUpdate({id :req.params.id.substring(1)}, {
+// update the choices using nickname 
+router.put('/updatechoices/:nickname', (req, res, next) => {
+    User.findOneAndUpdate({nickname :req.body.nickname}, {
         $set: {
             breakfast: req.body.breakfast,
             lunch: req.body.lunch,
@@ -142,10 +142,10 @@ router.put('/updatechoices/:id', (req, res, next) => {
 });
 
 
-// update the friendlist using id
-router.put('/updatefriends/:id', (req, res, next) => {
+// update the friendlist using nickname 
+router.put('/updatefriends/:nickname', (req, res, next) => {
 
-    User.findOneAndUpdate({id :req.params.id.substring(1)}, {
+    User.findOneAndUpdate({nickname :req.body.nickname}, {
         $set: {
           friendlist: req.body.friendlist
         }

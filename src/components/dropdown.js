@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './dropdown.css';
 
-
 class DropdownButton extends Component {
   constructor(props) {
     super(props);
@@ -10,12 +9,11 @@ class DropdownButton extends Component {
       optionType: props.optionType
     };
 
-    //this.handleClick = this.register.bind(this);
     this.handleClick = this.sendOption.bind(this);
   }
 
   sendOption(event) {
-    fetch('/update/:id', {
+    fetch('/updatechoices/:id', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
