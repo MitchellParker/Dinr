@@ -73,6 +73,7 @@ const Friends = () =>{
                             nickname: user,
                             friendlist: updatedFriendList
                         });
+                        getFriendList(updatedFriendList);
                         setMessage('Added ' + input + ' to you friend list');
                     }
                 })
