@@ -7,11 +7,22 @@
     float: left;
 }
 .friends_yourChoicesLabel {
-    text-align: right;
+    display: flex;
+    justify-content: center;
     padding: 10px 30% 10px 10px;
     margin: 0px;
     border-style: solid;
     border-width: 1px;
+}
+
+.friends_ChoicesLabel {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px; 
+    margin: 0px;
+    border-style: solid;
+    border-width: 1px;
+    width: 220px;
 }
 
 .friends_mealPeriod {
@@ -23,7 +34,18 @@
     margin: 0px;
 }
 
+.friends_mealPeriod_box {
+    text-align: left;
+    border-style: solid;
+    border-width: 1px;
+    width : 200px;
+    height: 150px;
+    padding: 10px;
+    margin: 0px;
+}
+
 .friendschoice{
+    margin-top: 10px;
     display: flex;
     overflow-x: scroll;
     flex-direction: row;

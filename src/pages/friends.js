@@ -13,6 +13,9 @@ const Friends = () =>{
     const [lunchTime, getLunchTime] = useState('');
     const [dinner, getDinner] = useState('');
     const [dinnerTime, getDinnerTime] = useState('');
+
+    const [input, setInput] = useState('');
+    const [message, setMessage] = useState('');
     const { user } = useAuth();
 
     const getUserDiningChoices = () => {
@@ -30,9 +33,65 @@ const Friends = () =>{
         });
     }
 
+    const handleChange = (event) => {
+        setInput(event.target.value);
+    }
+    async function handleSubmit(event) {
+        setMessage('');
+        //check if user gave a valid nickname
+        let isValidNickname = true;
+        axios.get('http://localhost:3001/fetch/?nickname=' + input)
+        .then(response => {
+            if (response.data.length == 0) {
+                setMessage('Invalid nickname');
+                isValidNickname = false;
+            }
+        })
+        .then(() => {
+            if (isValidNickname) {
+                //get user's current friendlist
+                let friends = [];
+                axios.get('http://localhost:3001/fetchfriends/?nickname=' + user)
+                .then((response) => {
+                    friends = response.data;
+                })
+                .then(() => {
+                    //check if friend is already in friendlist
+                    let alreadyInList = false;
+                    for (let i = 0; i < friends.length; i++) {
+                        if (friends[i] == input) {
+                            alreadyInList = true;
+                            setMessage('Friend is already in your list');
+                            break;
+                        }
+                    }
+                    if (!alreadyInList) {
+                        //update user's friendlist with new added friend
+                        const updatedFriendList = friends.concat(input);
+                        axios.put('http://localhost:3001/updatefriends/:nickname',
+                        {
+                            nickname: user,
+                            friendlist: updatedFriendList
+                        });
+                        setMessage('Added ' + input + ' to you friend list');
+                    }
+                })
+                .catch(error => {
+                    getError(error);
+                });
+            }
+        })
+        .catch(error => {
+            getError(error);
+        })
+        //clear search box
+        setInput('');
+        event.preventDefault();
+    }
+
     useEffect(() => {
         getUserDiningChoices();
-    })
+    }, []);
 
     const [friendlist, getFriendList] = useState([]);
 
@@ -77,38 +136,42 @@ const Friends = () =>{
         });
         return (
             <div>
-            <div className='friends_mealPeriod'>
-                <h2>Breakfast</h2>
-                <p>{friend_breakfast} at {friend_breakfastTime}</p>
+            <div className='friends_mealPeriod_box'>
+                <p>{friend_breakfast} {friend_breakfastTime}</p>
             </div>
-            <div className='friends_mealPeriod'>
-                <h2>Lunch</h2>
-                <p>{friend_lunch} at {friend_lunchTime}</p>
+            <div className='friends_mealPeriod_box'>
+                <p>{friend_lunch} {friend_lunchTime}</p>
             </div>
-            <div className='friends_mealPeriod'>
-                <h2>Dinner</h2>
-                <p>{friend_dinner} at {friend_dinnerTime}</p>
+            <div className='friends_mealPeriod_box'>
+                <p>{friend_dinner} {friend_dinnerTime}</p>
             </div> 
             </div>
         );
     }
 
     return (
+        <div>
+            {error ? <h1>{error}</h1> : 
         <div className = "friends">
         <input placeholder="Search for Friends!" onChange={event => setQuery(event.target.value)} />
+        <form onSubmit={handleSubmit}>
+                    <input placeholder="Add a Friend by Nickname" value={input} onChange={handleChange} />
+                    <input type="submit" value="Add" />
+                    <p>{message}</p>
+                </form>
         <div className='friends_yourChoices'>
         <div className='friends_yourChoicesLabel'>Your Choices</div>
             <div className='friends_mealPeriod'>
                 <h2>Breakfast</h2>
-                <p>{breakfast} at {breakfastTime}</p>
+                <p>{breakfast} {breakfastTime}</p>
             </div>
             <div className='friends_mealPeriod'>
                 <h2>Lunch</h2>
-                <p>{lunch} at {lunchTime}</p>
+                <p>{lunch} {lunchTime}</p>
             </div>
             <div className='friends_mealPeriod'>
                 <h2>Dinner</h2>
-                <p>{dinner} at {dinnerTime}</p>
+                <p>{dinner} {dinnerTime}</p>
             </div> 
         </div>
         <div className = "friendschoice">
@@ -123,39 +186,16 @@ const Friends = () =>{
             .map((friend) => {
                 return (
                     <div>
-                    <p>{friend}</p>
+                    <div className= "friends_ChoicesLabel">
+                    {friend}
+                    </div>
                     <Choices dude = {friend}/>
                     </div>
                 );
             } 
         )}
         </div>
-        {/*
-        <div className = "friendschoice">
-        {
-        friendlist.map((friend) => {
-            return (
-                <div className = "indfriend">
-                <p> Friend: {friend}</p>
-                </div>
-            );
-        })}
-        Data.filter((post) => {
-            if (query === '') {
-                return post
-            } else if (post.friend.toLowerCase().includes(query.toLowerCase())) {
-                return post
-            }
-        }).map((post, index) => {
-            return (
-                <div className = "indfriend" key={index}>
-                    <p>Friend: {post.friend}</p>
-                    <p className = "box">Breakfast: {post.breakfast}</p>
-                    <p className = "box">Lunch: {post.lunch}</p>
-                    <p className = "box">Dinner: {post.dinner}</p>
-                </div>
-            );
-        })*/}
+        </div>}
         </div>
   );
 }
