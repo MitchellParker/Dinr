@@ -149,6 +149,65 @@ const Friends = () =>{
         );
     }
 
+    const [friendlist, getFriendList] = useState([]);
+
+    const getFriendListroute =() => {
+        axios.get("http://localhost:3001/fetch/?nickname=" + user)
+        .then(response => {
+            getFriendList(response.data.friendlist)
+        })
+        .catch(error => {
+            getError(error)
+        });
+    }
+
+    useEffect(() => {
+        getFriendListroute();
+    }, [])
+
+
+    const Choices = (props) => {
+        const [friend_breakfast, getfriendBreakfast] = useState('');
+        const [friend_breakfastTime, getfriendBreakfastTime] = useState('');
+        const [friend_lunch, getfriendLunch] = useState('');
+        const [friend_lunchTime, getfriendLunchTime] = useState('');
+        const [friend_dinner, getfriendDinner] = useState('');
+        const [friend_dinnerTime, getfriendDinnerTime] = useState('');
+        
+        var begurl = `http://localhost:3001/fetch/?nickname=`;
+
+        var url = begurl + props.dude;
+
+        axios.get(url)
+        .then((response) => {
+            getfriendBreakfast(response.data.breakfast);
+            getfriendBreakfastTime(response.data.breakfastTime);
+            getfriendLunch(response.data.lunch);
+            getfriendLunchTime(response.data.lunchTime);
+            getfriendDinner(response.data.dinner);
+            getfriendDinnerTime(response.data.dinnerTime);
+        })
+        .catch(error => {
+            getError(error)
+        });
+        return (
+            <div>
+            <div className='friends_mealPeriod'>
+                <h2>Breakfast</h2>
+                <p>{friend_breakfast} at {friend_breakfastTime}</p>
+            </div>
+            <div className='friends_mealPeriod'>
+                <h2>Lunch</h2>
+                <p>{friend_lunch} at {friend_lunchTime}</p>
+            </div>
+            <div className='friends_mealPeriod'>
+                <h2>Dinner</h2>
+                <p>{friend_dinner} at {friend_dinnerTime}</p>
+            </div> 
+            </div>
+        );
+    }
+
     return (
         <div>
             {error ? <h1>{error}</h1> : 
