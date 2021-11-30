@@ -14,6 +14,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+### `.env generation`
+
+create a .env in backend folder and add this line to it:
+DB_URI= mongodb+srv://admin:hunter2@cluster0.ljdnu.mongodb.net/dinr?retryWrites=true&w=majority
+
+It links our project to our mongoDB database. 
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
