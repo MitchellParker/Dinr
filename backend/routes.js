@@ -3,11 +3,13 @@ const router = express.Router();
 const User = require('./user');
 
 // API Endpoints
+
+// route for the authentication 
 router.post('/auth', (req, res) => {
 	var nickname = req.body.nickname;
 	var password = req.body.password;
 	if (nickname && password) {
-		User.findOne({ $and: [{ nickname: nickname, password: password}] }) // fetch by nickname
+		User.findOne({ $and: [{ nickname: nickname, password: password}] }) 
         .then((result) => {
             if (!result) {
                 res.json({
@@ -32,6 +34,7 @@ router.post('/auth', (req, res) => {
 	}
 });
 
+// route to make a new user 
 router.post("/register", (req, res) => {
     User.findOne({
         $or:
@@ -70,14 +73,14 @@ router.post("/register", (req, res) => {
 });
 
 // fetch data of all users
-router.get("/fetchAll", (req, res) => {
+router.get("/fetchAll", (req, res) => { 
     User.find({}, (err, data) => {
-        if (!err) {
+        if (!err) { 
             res.status(200).send(data);
         } else {
-            res.status(500).send(err);
+            res.status(500).send(err); 
             console.log(err);
-        }
+        } 
     });
 });
 
@@ -141,7 +144,6 @@ router.put('/updatechoices/:nickname', (req, res, next) => {
         })
 });
 
-
 // update the friendlist using nickname 
 router.put('/updatefriends/:nickname', (req, res, next) => {
 
@@ -164,7 +166,9 @@ router.put('/updatefriends/:nickname', (req, res, next) => {
         })
 });
 
-
+// delete using the user.id
+// we might not implement delete method in the proect but delete route is important for 
+// the testing purposes. Also, in future we might add the option to delete account
 router.delete('/delete/:id', (req, res, next) => {
     User.remove({ _id: req.params.id.substring(1) })
         .then(result => {
@@ -180,6 +184,10 @@ router.delete('/delete/:id', (req, res, next) => {
         })
 });
 
+
+// delete using the user.nickname
+// we might not implement delete method in the proect but delete route is important for 
+// the testing purposes. Also, in future we might add the option to delete account
 router.delete('/deleteByName/:nickname', (req, res, next) => {
     User.remove({ nickname: req.params.nickname.substring(1) })
         .then(result => {
