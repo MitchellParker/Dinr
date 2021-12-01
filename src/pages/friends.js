@@ -39,10 +39,19 @@ const Friends = () =>{
         setMessage('');
         //check if user gave a valid nickname
         let isValidNickname = true;
+        let isOneself = false;
+
+        if (input === user){
+            isValidNickname = false;
+            isOneself = true;
+            setMessage('Cannot add oneself');
+        }
         axios.get('http://localhost:3001/fetch/?nickname=' + input)
         .then(response => {
             if (response.data.length == 0) {
+                if (!isOneself) {
                 setMessage('Invalid nickname');
+                }
                 isValidNickname = false;
             }
         })
