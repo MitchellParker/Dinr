@@ -41,6 +41,7 @@ class LoginForm extends React.Component {
       })
       return
     }
+    // Send info to register route when new user is made
     const res = await fetch('/register', {
       method: 'POST',
       headers: {
