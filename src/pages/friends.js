@@ -12,11 +12,11 @@ const Friends = () =>{
     const [lunchTime, getLunchTime] = useState('');
     const [dinner, getDinner] = useState('');
     const [dinnerTime, getDinnerTime] = useState('');
-
-    const [input, setInput] = useState('');
-    const [message, setMessage] = useState('');
+    const [input, setInput] = useState(''); //add friend bar search text
+    const [message, setMessage] = useState(''); //diagnostic message for add friend bar
     const { user } = useAuth();
 
+    //get dining choices of current user
     const getUserDiningChoices = () => {
         axios.get("http://localhost:3001/fetch/?nickname=" + user)
         .then((response) => {
@@ -32,9 +32,11 @@ const Friends = () =>{
         });
     }
 
+    //handler function for when user types into add friend bar
     const handleChange = (event) => {
         setInput(event.target.value);
     }
+    //handler function for when user presses add button
     async function handleSubmit(event) {
         setMessage('');
         //check if user gave a valid nickname
@@ -100,10 +102,10 @@ const Friends = () =>{
 
     useEffect(() => {
         getUserDiningChoices();
+        getFriendListroute();
     }, []);
 
     const [friendlist, getFriendList] = useState([]);
-
     const getFriendListroute =() => {
         axios.get("http://localhost:3001/fetch/?nickname=" + user)
         .then(response => {
@@ -114,11 +116,7 @@ const Friends = () =>{
         });
     }
 
-    useEffect(() => {
-        getFriendListroute();
-    }, [])
-
-
+    //component to display a friend's dining
     const Choices = (props) => {
         const [friend_breakfast, getfriendBreakfast] = useState('');
         const [friend_breakfastTime, getfriendBreakfastTime] = useState('');
