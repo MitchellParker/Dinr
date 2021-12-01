@@ -4,7 +4,10 @@ import useAuth from '../useAuth';
 import axios from 'axios';
 
 const Friends = () =>{
-    const [query, setQuery] = useState("");
+    const [Friendquery, setFriendQuery] = useState("");
+
+    const [Userquery, setUserQuery] = useState("");
+
     const [error, getError] = useState(null);
     const [breakfast, getBreakfast] = useState('');
     const [breakfastTime, getBreakfastTime] = useState('');
@@ -35,16 +38,27 @@ const Friends = () =>{
     //handler function for when user types into add friend bar
     const handleChange = (event) => {
         setInput(event.target.value);
+        setUserQuery(event.target.value);
     }
     //handler function for when user presses add button
     async function handleSubmit(event) {
         setMessage('');
         //check if user gave a valid nickname
         let isValidNickname = true;
+        let isOneself = false;
+
+        if (input === user){
+            isValidNickname = false;
+            isOneself = true;
+            setMessage('Cannot add oneself');
+        }
+        //axios.get('http://localhost:3001/fetch/?nickname=' + input)
         axios.get('/fetch/?nickname=' + input)
         .then(response => {
             if (response.data.length == 0) {
+                if (!isOneself) {
                 setMessage('Invalid nickname');
+                }
                 isValidNickname = false;
             }
         })
@@ -74,6 +88,7 @@ const Friends = () =>{
                             nickname: user,
                             friendlist: updatedFriendList
                         });
+                        getFriendList(updatedFriendList);
                         setMessage('Added ' + input + ' to you friend list');
                     }
                 })
@@ -106,7 +121,59 @@ const Friends = () =>{
         });
     }
 
-    //component to display a friend's dining
+    useEffect(() => {
+        getFriendListroute();
+    }, [])
+
+    const [UserNameList, getUserNameList] = useState([]);
+
+    const getUserNameListroute =() => {
+        axios.get("http://localhost:3001/fetchAllNickname")
+        .then(response => {
+            getUserNameList(response.data)
+        })
+        .catch(error => {
+            getError(error)
+        });
+    }
+
+    useEffect(() => {
+        getUserNameListroute();
+    }, []) 
+
+    const UserNameListComp = (props) => {
+        const input = props.input;
+        if (input !== "")
+        {
+            return (
+                <div className = "usernamelist">
+                    {
+                    UserNameList.filter((nickname) => {
+                    if (Userquery === '') {
+                        return nickname
+                    } else if (nickname.toLowerCase().includes(Userquery.toLowerCase())) {
+                        return nickname
+                    }
+                    })
+                    .map((nickname) => {
+                        return (
+                            <div className = "nickname">
+                                {nickname} 
+                            </div>
+                        );
+                    }
+                    ) 
+                    }
+                </div>
+            );
+    }
+    else{
+        return (
+        <div></div>
+        );
+    }
+}
+
     const Choices = (props) => {
         const [friend_breakfast, getfriendBreakfast] = useState('');
         const [friend_breakfastTime, getfriendBreakfastTime] = useState('');
@@ -117,7 +184,7 @@ const Friends = () =>{
         
         var begurl = `/fetch/?nickname=`;
 
-        var url = begurl + props.dude;
+        var url = begurl + props.friendname;
 
         axios.get(url)
         .then((response) => {
@@ -149,50 +216,55 @@ const Friends = () =>{
     return (
         <div>
             {error ? <h1>{error}</h1> : 
-                <div className = "friends">
-                    <input className = "friends_searchBar" placeholder="Search for Friends!" onChange={event => setQuery(event.target.value)} />
-                    <form className = "friends_add" onSubmit={handleSubmit}>
-                                <input placeholder="Add a Friend by Nickname" value={input} onChange={handleChange} />
-                                <input type="submit" value="Add" />
-                                <p>{message}</p>
-                            </form>
-                    <div className='friends_yourChoices'>
-                        <p className='friends_yourChoicesLabel'>Your Choices</p>
-                        <div className='friends_mealPeriod'>
-                            <h3>Breakfast</h3>
-                            <p>{breakfast} {breakfastTime}</p>
-                        </div>
-                        <div className='friends_mealPeriod'>
-                            <h3>Lunch</h3>
-                            <p>{lunch} {lunchTime}</p>
-                        </div>
-                        <div className='friends_mealPeriod'>
-                            <h3>Dinner</h3>
-                            <p>{dinner} {dinnerTime}</p>
-                        </div> 
+        <div className = "friends">
+        <input placeholder="Search for Friends!" onChange={event => setFriendQuery(event.target.value)} />
+        <div className = "add">
+            <form onSubmit={handleSubmit}>
+                <input placeholder="Add a Friend by Nickname" value={input} onChange={handleChange} />
+                <input type="submit" value="Add" />
+                <p>{message}</p>
+            </form>
+            <UserNameListComp input = {input}/>
+        </div>
+        <div className='friends_yourChoices'>
+        <div className='friends_yourChoicesLabel'>Your Choices</div>
+            <div className='friends_mealPeriod'>
+                <h2>Breakfast</h2>
+                <p>{breakfast} {breakfastTime}</p>
+            </div>
+            <div className='friends_mealPeriod'>
+                <h2>Lunch</h2>
+                <p>{lunch} {lunchTime}</p>
+            </div>
+            <div className='friends_mealPeriod'>
+                <h2>Dinner</h2>
+                <p>{dinner} {dinnerTime}</p>
+            </div> 
+        </div>
+        <div className = "friends_friendschoice">
+        {
+            friendlist.filter((friend) => {
+                if (Friendquery === '') {
+                    return friend
+                } else if (friend.toLowerCase().includes(Friendquery.toLowerCase())) {
+                    return friend
+                }
+            })
+            .map((friend) => {
+                return (
+                    <div>
+                    <div className= "friends_ChoicesLabel">
+                    {friend}
                     </div>
-                    <div className = "friends_friendschoice">
-                    {
-                        friendlist.filter((friend) => {
-                            if (query === '') {
-                                return friend
-                            } else if (friend.toLowerCase().includes(query.toLowerCase())) {
-                                return friend
-                            }
-                        })
-                        .map((friend) => {
-                            return (
-                                <div>
-                                    <p className= "friends_ChoicesLabel">
-                                        {friend}
-                                    </p>
-                                    <Choices dude = {friend}/>
-                                </div>
-                            );
-                        } 
-                    )}
+                    <Choices friendname = {friend}/>
                     </div>
-                </div>}
+                );
+            }
+            )
+        }
+        </div>
+        </div>
+        }
         </div>
   );
 }
