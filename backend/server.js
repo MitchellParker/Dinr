@@ -3,8 +3,6 @@ const path = require("path");
 const routes = require("./routes");
 const connectDB = require("./db");
 
-// Users: admin, password: hunter2
-
 // App Config
 const app = express();
 const port = process.env.PORT || 3001;

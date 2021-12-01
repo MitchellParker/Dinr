@@ -1,6 +1,7 @@
 const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
+// Define information that each user stores in database
 const UserSchema = new Schema({
     nickname: String,  
     password: String,
