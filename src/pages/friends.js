@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './friends.css';
-import Data from "../tempmockdata/mock-data.json";
 import useAuth from '../useAuth';
 import axios from 'axios';
 
@@ -121,7 +120,7 @@ const Friends = () =>{
         
         var begurl = `http://localhost:3001/fetch/?nickname=`;
 
-        var url = begurl + props.dude;
+        var url = begurl + props.friendname;
 
         axios.get(url)
         .then((response) => {
@@ -190,7 +189,7 @@ const Friends = () =>{
                     <div className= "friends_ChoicesLabel">
                     {friend}
                     </div>
-                    <Choices dude = {friend}/>
+                    <Choices friendname = {friend}/>
                     </div>
                 );
             } 
