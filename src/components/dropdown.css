@@ -1,10 +1,13 @@
 .dropdown_menu {
-    border-style: solid;
-    border-width: 1;
     width: 20%;
     margin-left: 40%;
+    margin-bottom: 30px;
 }
 .dropdown_button {
     display: block;
     margin: 0 auto;
+}
+.dropdown_selectedOption {
+    font-weight: normal;
+    font-size: 11px;
 }
