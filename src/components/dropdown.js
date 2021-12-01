@@ -11,7 +11,7 @@ class DropdownButton extends Component {
 
     this.handleClick = this.sendOption.bind(this);
   }
-
+  // function called to update server side data for dining options
   sendOption(event) {
     fetch('/updatechoices/:id', {
       method: 'PUT',

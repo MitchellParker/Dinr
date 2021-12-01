@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './friends.css';
-import Data from "../tempmockdata/mock-data.json";
 import useAuth from '../useAuth';
 import axios from 'axios';
 
