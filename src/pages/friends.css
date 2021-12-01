@@ -15,6 +15,17 @@
     border-width: 1px;
 }
 
+.add {
+    display:flex;
+    white-space: nowrap;
+}
+
+.test{
+    display: flex;
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
 .friends_ChoicesLabel {
     text-align: center;
     padding-top: 10px;
@@ -45,9 +56,22 @@
 }
 
 .friendschoice{
-    margin-top: 10px;
     display: flex;
     overflow-x: scroll;
     flex-direction: row;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .usernamelist {
+    display: flex;
+    overflow-x: scroll;
+    flex-direction: row;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .nickname{
+    margin-right: 1em;
+    margin-left: 1em;
+    flex-shrink: none;
   }
