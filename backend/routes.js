@@ -70,17 +70,7 @@ router.post("/register", (req, res) => {
     })
 });
 
-// fetch data of all users
-router.get("/fetchAll", (req, res) => { 
-    User.find({}, (err, data) => {
-        if (!err) { 
-            res.status(200).send(data);
-        } else {
-            res.status(500).send(err); 
-            console.log(err);
-        } 
-    });
-});
+// fetch all the nicknames
 router.get("/fetchAllNickname", (req, res) => { 
     User.find({}, (err, data) => {
         if (!err) { 
