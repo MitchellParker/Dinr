@@ -83,6 +83,17 @@ router.get("/fetchAll", (req, res) => {
         } 
     });
 });
+router.get("/fetchAllNickname", (req, res) => { 
+    User.find({}, (err, data) => {
+        if (!err) { 
+            names = data.map(user => user.nickname)
+            res.status(200).send(names);
+        } else {
+            res.status(500).send(err); 
+            console.log(err);
+        } 
+    });
+});
 
 // fetch by nickname (/fetch/?nickname=blue)
 router.get('/fetch/', function (req, res) {
