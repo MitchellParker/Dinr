@@ -21,7 +21,7 @@ const Friends = () =>{
 
     //get dining choices of current user
     const getUserDiningChoices = () => {
-        axios.get("http://localhost:3001/fetch/?nickname=" + user)
+        axios.get("/fetch/?nickname=" + user)
         .then((response) => {
             getBreakfast(response.data.breakfast);
             getBreakfastTime(response.data.breakfastTime);
@@ -52,7 +52,8 @@ const Friends = () =>{
             isOneself = true;
             setMessage('Cannot add oneself');
         }
-        axios.get('http://localhost:3001/fetch/?nickname=' + input)
+        //axios.get('http://localhost:3001/fetch/?nickname=' + input)
+        axios.get('/fetch/?nickname=' + input)
         .then(response => {
             if (response.data.length == 0) {
                 if (!isOneself) {
@@ -65,7 +66,7 @@ const Friends = () =>{
             if (isValidNickname) {
                 //get user's current friendlist
                 let friends = [];
-                axios.get('http://localhost:3001/fetchfriends/?nickname=' + user)
+                axios.get('/fetchfriends/?nickname=' + user)
                 .then((response) => {
                     friends = response.data;
                 })
@@ -82,7 +83,7 @@ const Friends = () =>{
                     if (!alreadyInList) {
                         //update user's friendlist with new added friend
                         const updatedFriendList = friends.concat(input);
-                        axios.put('http://localhost:3001/updatefriends/:nickname',
+                        axios.put('/updatefriends/:nickname',
                         {
                             nickname: user,
                             friendlist: updatedFriendList
@@ -111,7 +112,7 @@ const Friends = () =>{
 
     const [friendlist, getFriendList] = useState([]);
     const getFriendListroute =() => {
-        axios.get("http://localhost:3001/fetch/?nickname=" + user)
+        axios.get("/fetch/?nickname=" + user)
         .then(response => {
             getFriendList(response.data.friendlist)
         })
@@ -181,7 +182,7 @@ const Friends = () =>{
         const [friend_dinner, getfriendDinner] = useState('');
         const [friend_dinnerTime, getfriendDinnerTime] = useState('');
         
-        var begurl = `http://localhost:3001/fetch/?nickname=`;
+        var begurl = `/fetch/?nickname=`;
 
         var url = begurl + props.friendname;
 
@@ -240,7 +241,7 @@ const Friends = () =>{
                 <p>{dinner} {dinnerTime}</p>
             </div> 
         </div>
-        <div className = "friendschoice">
+        <div className = "friends_friendschoice">
         {
             friendlist.filter((friend) => {
                 if (Friendquery === '') {
@@ -258,10 +259,12 @@ const Friends = () =>{
                     <Choices friendname = {friend}/>
                     </div>
                 );
-            } 
-        )}
+            }
+            )
+        }
         </div>
-        </div>}
+        </div>
+        }
         </div>
   );
 }

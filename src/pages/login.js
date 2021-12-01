@@ -19,7 +19,6 @@ class LoginForm extends React.Component {
     this.handleRegister = this.handleRegister.bind(this);
   }
 
-  
   updateUsername(event) {
     this.setState({ username: event.target.value });
   }
@@ -42,6 +41,7 @@ class LoginForm extends React.Component {
       })
       return
     }
+    // Send info to register route when new user is made
     const res = await fetch('/register', {
       method: 'POST',
       headers: {
@@ -90,6 +90,8 @@ class LoginForm extends React.Component {
   }
 }
 
+// Control which page is displayed
+// If there is no user logged in, redirect to login screen
 const Login = () => {
   const { authed, login } = useAuth();
   return authed ? (

@@ -2,6 +2,14 @@
     margin-left: 200px;
 }
 
+.friends_searchBar {
+    margin: 15px 0px 0px 17px;
+}
+
+.friends_add {
+    margin: 10px 0px 5px 15px;
+}
+
 .friends_yourChoices {
     width: 33%;
     float: left;
@@ -9,10 +17,11 @@
 .friends_yourChoicesLabel {
     display: flex;
     justify-content: center;
-    padding: 10px 30% 10px 10px;
+    padding: 10px;
     margin: 0px;
     border-style: solid;
     border-width: 1px;
+    font-weight: bold;
 }
 
 .add {
@@ -34,6 +43,7 @@
     border-style: solid;
     border-width: 1px;
     width: 220px;
+    font-weight: bold;
 }
 
 .friends_mealPeriod {
@@ -55,7 +65,7 @@
     margin: 0px;
 }
 
-.friendschoice{
+.friends_friendschoice{
     display: flex;
     overflow-x: scroll;
     flex-direction: row;

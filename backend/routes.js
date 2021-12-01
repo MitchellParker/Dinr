@@ -43,8 +43,6 @@ router.post("/register", (req, res) => {
         if (user) {
 
             return res.status(202).send({
-                // message: "This user already exists!",
-                // message: req.body.nickname,
                 message: "This user already exists!"
             })
         }
@@ -72,17 +70,7 @@ router.post("/register", (req, res) => {
     })
 });
 
-// fetch data of all users
-router.get("/fetchAll", (req, res) => { 
-    User.find({}, (err, data) => {
-        if (!err) { 
-            res.status(200).send(data);
-        } else {
-            res.status(500).send(err); 
-            console.log(err);
-        } 
-    });
-});
+// fetch all the nicknames
 router.get("/fetchAllNickname", (req, res) => { 
     User.find({}, (err, data) => {
         if (!err) { 
@@ -105,6 +93,7 @@ router.get('/fetch/', function (req, res) {
             res.send(err);
         })
 });
+
 //Fetch By Id, to fetch person dining and time choices 
 router.get('/fetchbyid/:id', function (req, res) { 
     User.findById(req.params.id.substring(1))
@@ -126,8 +115,6 @@ router.get('/fetchfriends/', function (req, res) {
            res.send(err);
        })
 });
-
-
 
 // update the choices using nickname 
 router.put('/updatechoices/:nickname', (req, res, next) => {
@@ -178,7 +165,7 @@ router.put('/updatefriends/:nickname', (req, res, next) => {
 });
 
 // delete using the user.id
-// we might not implement delete method in the proect but delete route is important for 
+// we might not implement delete method in the project but delete route is important for 
 // the testing purposes. Also, in future we might add the option to delete account
 router.delete('/delete/:id', (req, res, next) => {
     User.remove({ _id: req.params.id.substring(1) })
@@ -195,9 +182,8 @@ router.delete('/delete/:id', (req, res, next) => {
         })
 });
 
-
 // delete using the user.nickname
-// we might not implement delete method in the proect but delete route is important for 
+// we might not implement delete method in the project but delete route is important for 
 // the testing purposes. Also, in future we might add the option to delete account
 router.delete('/deleteByName/:nickname', (req, res, next) => {
     User.remove({ nickname: req.params.nickname.substring(1) })
