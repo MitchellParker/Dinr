@@ -18,7 +18,7 @@ const Friends = () =>{
 
     //get dining choices of current user
     const getUserDiningChoices = () => {
-        axios.get("http://localhost:3001/fetch/?nickname=" + user)
+        axios.get("/fetch/?nickname=" + user)
         .then((response) => {
             getBreakfast(response.data.breakfast);
             getBreakfastTime(response.data.breakfastTime);
@@ -41,7 +41,7 @@ const Friends = () =>{
         setMessage('');
         //check if user gave a valid nickname
         let isValidNickname = true;
-        axios.get('http://localhost:3001/fetch/?nickname=' + input)
+        axios.get('/fetch/?nickname=' + input)
         .then(response => {
             if (response.data.length == 0) {
                 setMessage('Invalid nickname');
@@ -52,7 +52,7 @@ const Friends = () =>{
             if (isValidNickname) {
                 //get user's current friendlist
                 let friends = [];
-                axios.get('http://localhost:3001/fetchfriends/?nickname=' + user)
+                axios.get('/fetchfriends/?nickname=' + user)
                 .then((response) => {
                     friends = response.data;
                 })
@@ -69,7 +69,7 @@ const Friends = () =>{
                     if (!alreadyInList) {
                         //update user's friendlist with new added friend
                         const updatedFriendList = friends.concat(input);
-                        axios.put('http://localhost:3001/updatefriends/:nickname',
+                        axios.put('/updatefriends/:nickname',
                         {
                             nickname: user,
                             friendlist: updatedFriendList
@@ -97,7 +97,7 @@ const Friends = () =>{
 
     const [friendlist, getFriendList] = useState([]);
     const getFriendListroute =() => {
-        axios.get("http://localhost:3001/fetch/?nickname=" + user)
+        axios.get("/fetch/?nickname=" + user)
         .then(response => {
             getFriendList(response.data.friendlist)
         })
@@ -115,7 +115,7 @@ const Friends = () =>{
         const [friend_dinner, getfriendDinner] = useState('');
         const [friend_dinnerTime, getfriendDinnerTime] = useState('');
         
-        var begurl = `http://localhost:3001/fetch/?nickname=`;
+        var begurl = `/fetch/?nickname=`;
 
         var url = begurl + props.dude;
 
@@ -149,50 +149,50 @@ const Friends = () =>{
     return (
         <div>
             {error ? <h1>{error}</h1> : 
-        <div className = "friends">
-        <input placeholder="Search for Friends!" onChange={event => setQuery(event.target.value)} />
-        <form onSubmit={handleSubmit}>
-                    <input placeholder="Add a Friend by Nickname" value={input} onChange={handleChange} />
-                    <input type="submit" value="Add" />
-                    <p>{message}</p>
-                </form>
-        <div className='friends_yourChoices'>
-        <div className='friends_yourChoicesLabel'>Your Choices</div>
-            <div className='friends_mealPeriod'>
-                <h2>Breakfast</h2>
-                <p>{breakfast} {breakfastTime}</p>
-            </div>
-            <div className='friends_mealPeriod'>
-                <h2>Lunch</h2>
-                <p>{lunch} {lunchTime}</p>
-            </div>
-            <div className='friends_mealPeriod'>
-                <h2>Dinner</h2>
-                <p>{dinner} {dinnerTime}</p>
-            </div> 
-        </div>
-        <div className = "friendschoice">
-        {
-            friendlist.filter((friend) => {
-                if (query === '') {
-                    return friend
-                } else if (friend.toLowerCase().includes(query.toLowerCase())) {
-                    return friend
-                }
-            })
-            .map((friend) => {
-                return (
-                    <div>
-                    <div className= "friends_ChoicesLabel">
-                    {friend}
+                <div className = "friends">
+                    <input className = "friends_searchBar" placeholder="Search for Friends!" onChange={event => setQuery(event.target.value)} />
+                    <form className = "friends_add" onSubmit={handleSubmit}>
+                                <input placeholder="Add a Friend by Nickname" value={input} onChange={handleChange} />
+                                <input type="submit" value="Add" />
+                                <p>{message}</p>
+                            </form>
+                    <div className='friends_yourChoices'>
+                        <p className='friends_yourChoicesLabel'>Your Choices</p>
+                        <div className='friends_mealPeriod'>
+                            <h3>Breakfast</h3>
+                            <p>{breakfast} {breakfastTime}</p>
+                        </div>
+                        <div className='friends_mealPeriod'>
+                            <h3>Lunch</h3>
+                            <p>{lunch} {lunchTime}</p>
+                        </div>
+                        <div className='friends_mealPeriod'>
+                            <h3>Dinner</h3>
+                            <p>{dinner} {dinnerTime}</p>
+                        </div> 
                     </div>
-                    <Choices dude = {friend}/>
+                    <div className = "friends_friendschoice">
+                    {
+                        friendlist.filter((friend) => {
+                            if (query === '') {
+                                return friend
+                            } else if (friend.toLowerCase().includes(query.toLowerCase())) {
+                                return friend
+                            }
+                        })
+                        .map((friend) => {
+                            return (
+                                <div>
+                                    <p className= "friends_ChoicesLabel">
+                                        {friend}
+                                    </p>
+                                    <Choices dude = {friend}/>
+                                </div>
+                            );
+                        } 
+                    )}
                     </div>
-                );
-            } 
-        )}
-        </div>
-        </div>}
+                </div>}
         </div>
   );
 }
