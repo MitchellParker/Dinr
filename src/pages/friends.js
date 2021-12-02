@@ -4,6 +4,8 @@ import useAuth from '../useAuth';
 import axios from 'axios';
 
 const Friends = () =>{
+
+    // queries for searching through nicknames and friends
     const [Friendquery, setFriendQuery] = useState("");
 
     const [Userquery, setUserQuery] = useState("");
@@ -52,7 +54,6 @@ const Friends = () =>{
             isOneself = true;
             setMessage('Cannot add oneself');
         }
-        //axios.get('http://localhost:3001/fetch/?nickname=' + input)
         axios.get('/fetch/?nickname=' + input)
         .then(response => {
             if (response.data.length == 0) {
@@ -89,7 +90,7 @@ const Friends = () =>{
                             friendlist: updatedFriendList
                         });
                         getFriendList(updatedFriendList);
-                        setMessage('Added ' + input + ' to you friend list');
+                        setMessage('Added ' + input + ' to your friend list');
                     }
                 })
                 .catch(error => {
@@ -110,6 +111,7 @@ const Friends = () =>{
         getFriendListroute();
     }, []);
 
+    // get friends list
     const [friendlist, getFriendList] = useState([]);
     const getFriendListroute =() => {
         axios.get("/fetch/?nickname=" + user)
@@ -125,10 +127,11 @@ const Friends = () =>{
         getFriendListroute();
     }, [])
 
+    // get list of usernames
     const [UserNameList, getUserNameList] = useState([]);
 
     const getUserNameListroute =() => {
-        axios.get("http://localhost:3001/fetchAllNickname")
+        axios.get("/fetchAllNickname")
         .then(response => {
             getUserNameList(response.data)
         })
@@ -141,10 +144,15 @@ const Friends = () =>{
         getUserNameListroute();
     }, []) 
 
+    // user name list component
+    // not necessarily reusable so it remains in this file
+    // will only display once you start inputting in the add friends button
     const UserNameListComp = (props) => {
+        // will return filtered username list if there is input
         const input = props.input;
         if (input !== "")
         {
+            // this will display a filtered version of the username list
             return (
                 <div className = "usernamelist">
                     {
@@ -167,6 +175,7 @@ const Friends = () =>{
                 </div>
             );
     }
+    // if there is no input, just return nothing pretty much
     else{
         return (
         <div></div>
@@ -174,51 +183,54 @@ const Friends = () =>{
     }
 }
 
-    const Choices = (props) => {
-        const [friend_breakfast, getfriendBreakfast] = useState('');
-        const [friend_breakfastTime, getfriendBreakfastTime] = useState('');
-        const [friend_lunch, getfriendLunch] = useState('');
-        const [friend_lunchTime, getfriendLunchTime] = useState('');
-        const [friend_dinner, getfriendDinner] = useState('');
-        const [friend_dinnerTime, getfriendDinnerTime] = useState('');
-        
-        var begurl = `/fetch/?nickname=`;
+// component for the dining choices of a friend
+// not necessarily reusable so it remains in this file
+// we send in friend's name as a prop
+const Choices = (props) => {
+    const [friend_breakfast, getfriendBreakfast] = useState('');
+    const [friend_breakfastTime, getfriendBreakfastTime] = useState('');
+    const [friend_lunch, getfriendLunch] = useState('');
+    const [friend_lunchTime, getfriendLunchTime] = useState('');
+    const [friend_dinner, getfriendDinner] = useState('');
+    const [friend_dinnerTime, getfriendDinnerTime] = useState('');
+    
+    var begurl = `/fetch/?nickname=`;
 
-        var url = begurl + props.friendname;
+    var url = begurl + props.friendname;
 
-        axios.get(url)
-        .then((response) => {
-            getfriendBreakfast(response.data.breakfast);
-            getfriendBreakfastTime(response.data.breakfastTime);
-            getfriendLunch(response.data.lunch);
-            getfriendLunchTime(response.data.lunchTime);
-            getfriendDinner(response.data.dinner);
-            getfriendDinnerTime(response.data.dinnerTime);
-        })
-        .catch(error => {
-            getError(error)
-        });
-        return (
-            <div>
-            <div className='friends_mealPeriod_box'>
-                <p>{friend_breakfast} {friend_breakfastTime}</p>
-            </div>
-            <div className='friends_mealPeriod_box'>
-                <p>{friend_lunch} {friend_lunchTime}</p>
-            </div>
-            <div className='friends_mealPeriod_box'>
-                <p>{friend_dinner} {friend_dinnerTime}</p>
-            </div> 
-            </div>
-        );
-    }
+    axios.get(url)
+    .then((response) => {
+        getfriendBreakfast(response.data.breakfast);
+        getfriendBreakfastTime(response.data.breakfastTime);
+        getfriendLunch(response.data.lunch);
+        getfriendLunchTime(response.data.lunchTime);
+        getfriendDinner(response.data.dinner);
+        getfriendDinnerTime(response.data.dinnerTime);
+    })
+    .catch(error => {
+        getError(error)
+    });
+    return (
+        <div>
+        <div className='friends_mealPeriod_box'>
+            <p>{friend_breakfast} {friend_breakfastTime}</p>
+        </div>
+        <div className='friends_mealPeriod_box'>
+            <p>{friend_lunch} {friend_lunchTime}</p>
+        </div>
+        <div className='friends_mealPeriod_box'>
+            <p>{friend_dinner} {friend_dinnerTime}</p>
+        </div> 
+        </div>
+    );
+}
 
     return (
         <div>
             {error ? <h1>{error}</h1> : 
         <div className = "friends">
-        <input placeholder="Search for Friends!" onChange={event => setFriendQuery(event.target.value)} />
-        <div className = "add">
+        <input className = "friends_searchBar" placeholder="Search for Friends!" onChange={event => setFriendQuery(event.target.value)} />
+        <div className = "friends_add">
             <form onSubmit={handleSubmit}>
                 <input placeholder="Add a Friend by Nickname" value={input} onChange={handleChange} />
                 <input type="submit" value="Add" />

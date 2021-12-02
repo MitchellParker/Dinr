@@ -3,15 +3,11 @@
 }
 
 .friends_searchBar {
-    margin: 15px 0px 0px 17px;
-}
-
-.friends_add {
-    margin: 10px 0px 5px 15px;
+    margin: 15px 0px 0px 15px;
 }
 
 .friends_yourChoices {
-    width: 33%;
+    width: 220px;
     float: left;
 }
 .friends_yourChoicesLabel {
@@ -24,15 +20,10 @@
     font-weight: bold;
 }
 
-.add {
+.friends_add {
     display:flex;
     white-space: nowrap;
-}
-
-.test{
-    display: flex;
-    white-space: nowrap;
-    overflow-x: scroll;
+    margin: 10px 0px 5px 15px;
 }
 
 .friends_ChoicesLabel {
@@ -55,7 +46,14 @@
     margin: 0px;
 }
 
-.friends_mealPeriod_box {
+.friends_friendschoice{
+    display: flex;
+    overflow-x: scroll;
+    flex-direction: row;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .friends_mealPeriod_box {
     text-align: left;
     border-style: solid;
     border-width: 1px;
@@ -64,13 +62,6 @@
     padding: 10px;
     margin: 0px;
 }
-
-.friends_friendschoice{
-    display: flex;
-    overflow-x: scroll;
-    flex-direction: row;
-    -webkit-overflow-scrolling: touch;
-  }
 
   .usernamelist {
     display: flex;
