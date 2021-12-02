@@ -4,8 +4,5 @@ import { Navigate } from 'react-router';
 
 export default function RequireAuth({ children }) {
   const { authed } = useAuth();
-
-  return authed === true 
-    ? children 
-    : <Navigate to="/login" replace />;
+  return authed ? children : <Navigate to="/login" replace />;
 }
