@@ -3,3 +3,17 @@
     margin-top: 15%;
     text-align: center;
 }
+
+.login_username {
+    position: relative;
+    right: 2px;
+}
+
+.login_buttons{
+    position: relative;
+    left: 37px;
+}
+
+.login_inputbox{
+    width: 147px;
+}
