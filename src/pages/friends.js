@@ -55,7 +55,7 @@ const Friends = () =>{
         //axios.get('http://localhost:3001/fetch/?nickname=' + input)
         axios.get('/fetch/?nickname=' + input)
         .then(response => {
-            if (response.data.length == 0) {
+            if (response.data.length === 0) {
                 if (!isOneself) {
                 setMessage('Invalid nickname');
                 }
@@ -74,7 +74,7 @@ const Friends = () =>{
                     //check if friend is already in friendlist
                     let alreadyInList = false;
                     for (let i = 0; i < friends.length; i++) {
-                        if (friends[i] == input) {
+                        if (friends[i] === input) {
                             alreadyInList = true;
                             setMessage('Friend is already in your list');
                             break;
@@ -108,7 +108,7 @@ const Friends = () =>{
     useEffect(() => {
         getUserDiningChoices();
         getFriendListroute();
-    }, []);
+    });
 
     const [friendlist, getFriendList] = useState([]);
     const getFriendListroute =() => {
@@ -123,7 +123,7 @@ const Friends = () =>{
 
     useEffect(() => {
         getFriendListroute();
-    }, [])
+    })
 
     const [UserNameList, getUserNameList] = useState([]);
 
@@ -150,12 +150,12 @@ const Friends = () =>{
                     {
                     UserNameList.filter((nickname) => {
                     if (nickname === user) {
-                        return
+                        return undefined;
                     } else if (Userquery === '') {
-                        return nickname
+                        return nickname;
                     } else if (nickname.toLowerCase().includes(Userquery.toLowerCase())) {
-                        return nickname
-                    }
+                        return nickname;
+                    } else return undefined;
                     })
                     .map((nickname) => {
                         return (
@@ -247,10 +247,10 @@ const Friends = () =>{
         {
             friendlist.filter((friend) => {
                 if (Friendquery === '') {
-                    return friend
+                    return friend;
                 } else if (friend.toLowerCase().includes(Friendquery.toLowerCase())) {
-                    return friend
-                }
+                    return friend;
+                } else return undefined;
             })
             .map((friend) => {
                 return (
