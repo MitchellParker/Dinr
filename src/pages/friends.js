@@ -128,7 +128,7 @@ const Friends = () =>{
     const [UserNameList, getUserNameList] = useState([]);
 
     const getUserNameListroute =() => {
-        axios.get("http://localhost:3001/fetchAllNickname")
+        axios.get("/fetchAllNickname")
         .then(response => {
             getUserNameList(response.data)
         })
