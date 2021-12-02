@@ -89,7 +89,7 @@ const Friends = () =>{
                             friendlist: updatedFriendList
                         });
                         getFriendList(updatedFriendList);
-                        setMessage('Added ' + input + ' to you friend list');
+                        setMessage('Added ' + input + ' to your friend list');
                     }
                 })
                 .catch(error => {
@@ -149,7 +149,9 @@ const Friends = () =>{
                 <div className = "usernamelist">
                     {
                     UserNameList.filter((nickname) => {
-                    if (Userquery === '') {
+                    if (nickname === user) {
+                        return
+                    } else if (Userquery === '') {
                         return nickname
                     } else if (nickname.toLowerCase().includes(Userquery.toLowerCase())) {
                         return nickname
@@ -217,7 +219,7 @@ const Friends = () =>{
         <div>
             {error ? <h1>{error}</h1> : 
         <div className = "friends">
-        <input placeholder="Search for Friends!" onChange={event => setFriendQuery(event.target.value)} />
+        <input placeholder="Filter your Friends!" onChange={event => setFriendQuery(event.target.value)} />
         <div className = "add">
             <form onSubmit={handleSubmit}>
                 <input placeholder="Add a Friend by Nickname" value={input} onChange={handleChange} />
