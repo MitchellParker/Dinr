@@ -2,6 +2,14 @@
     margin-left: 200px;
 }
 
+.friends_searchBar {
+    margin: 15px 0px 0px 17px;
+}
+
+.friends_add {
+    margin: 10px 0px 5px 15px;
+}
+
 .friends_yourChoices {
     width: 33%;
     float: left;
@@ -9,10 +17,22 @@
 .friends_yourChoicesLabel {
     display: flex;
     justify-content: center;
-    padding: 10px 30% 10px 10px;
+    padding: 10px;
     margin: 0px;
     border-style: solid;
     border-width: 1px;
+    font-weight: bold;
+}
+
+.add {
+    display:flex;
+    white-space: nowrap;
+}
+
+.test{
+    display: flex;
+    white-space: nowrap;
+    overflow-x: scroll;
 }
 
 .friends_ChoicesLabel {
@@ -23,6 +43,7 @@
     border-style: solid;
     border-width: 1px;
     width: 220px;
+    font-weight: bold;
 }
 
 .friends_mealPeriod {
@@ -44,62 +65,23 @@
     margin: 0px;
 }
 
-.friendschoice{
-    margin-top: 10px;
+.friends_friendschoice{
     display: flex;
     overflow-x: scroll;
     flex-direction: row;
     -webkit-overflow-scrolling: touch;
   }
-  
-  .indfriend{
-    text-align: left;
-    margin: 3px;
-    flex-shrink: 0;
-    width: 20rem;
-    padding-left: 10px;
-    float: left
-  }
-  
-  .box {
-    border-style: solid;
-      border-width: 1px;
-      height: 150px;
-      padding: 10px;
-      margin: 0px;
-  }
-/*
-  .friends_searchBar {
-    text-align: right;
-    padding-right: 15px;
-    margin: 20px 20px 40px 50%;
-    border-style: solid;
-    border-width: 1px;
-}
 
-.friends_mealPeriod {
-    text-align: left;
-    border-style: solid;
-    border-width: 1px;
-    height: 150px;
-    padding: 10px;
-    margin: 0px;
-}
-.friends_friendChoices {
-    width: 100px;
-    
-    float: left;
-    
-    overflow-y: hidden;
-    
+  .usernamelist {
+    display: flex;
+    overflow-x: scroll;
+    flex-direction: row;
+    -webkit-overflow-scrolling: touch;
     white-space: nowrap;
-    
-}
-.friends_friendChoicesLabel {
-    text-align: left;
-    padding: 10px 10px 10px 10%;
-    margin: 0px;
-    border-style: solid;
-    border-width: 1px;
-}
-*/
+  }
+
+  .nickname{
+    margin-right: 1em;
+    margin-left: 1em;
+    flex-shrink: none;
+  }

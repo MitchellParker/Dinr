@@ -9,12 +9,16 @@ const NavBar= () =>{
     <body className="navbar_container">
       <div>
         {authed ? (
-          <li className="navbar_button">
-            User: {user} <br />
-            <Link onClick={logout} to="/signout" className="navbar_link">
-              Sign Out
-            </Link>
-          </li>
+          <div>
+            <li className="navbar_userLabel">
+              User: {user}
+            </li>
+            <li className="navbar_button">
+              <Link onClick={logout} to="/signout" className="navbar_link">
+                Sign Out
+              </Link>
+            </li>
+          </div>
         ) : (
           <li className="navbar_button">
             <Link to="/login" className="navbar_link">
