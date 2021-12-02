@@ -3,6 +3,8 @@ import './login.css';
 import useAuth from '../useAuth';
 import { Navigate } from 'react-router';
 
+// The form that gets username and password
+// creates account or logs in as necessary
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -18,13 +20,15 @@ class LoginForm extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
-
+  // what to do when user edits text in username box
   updateUsername(event) {
     this.setState({ username: event.target.value });
   }
+  // what to do when user edits text in password box
   updatePassword(event) {
     this.setState({ password: event.target.value });
   }
+  // what to do when user clicks login button
   handleLogin(event) {
     this.props.onLogin(this.state.username, this.state.password).then(res => {
       if (!res.authed) {
@@ -34,6 +38,7 @@ class LoginForm extends React.Component {
       }
     });
   }
+  // what to do when user clicks create account button
   async handleRegister(event) {
     if (this.state.username === "" || this.state.password === "") {
       this.setState({
@@ -41,7 +46,7 @@ class LoginForm extends React.Component {
       })
       return
     }
-    // Send info to register route when new user is made
+    // Send info to backend /register route
     const res = await fetch('/register', {
       method: 'POST',
       headers: {
