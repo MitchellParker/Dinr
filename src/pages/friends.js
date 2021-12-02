@@ -157,7 +157,9 @@ const Friends = () =>{
                 <div className = "usernamelist">
                     {
                     UserNameList.filter((nickname) => {
-                    if (Userquery === '') {
+                    if (nickname === user) {
+                        return
+                    } else if (Userquery === '') {
                         return nickname
                     } else if (nickname.toLowerCase().includes(Userquery.toLowerCase())) {
                         return nickname
@@ -229,7 +231,7 @@ const Choices = (props) => {
         <div>
             {error ? <h1>{error}</h1> : 
         <div className = "friends">
-        <input className = "friends_searchBar" placeholder="Search for Friends!" onChange={event => setFriendQuery(event.target.value)} />
+        <input className = "friends_searchBar" placeholder="Filter your Friends!" onChange={event => setFriendQuery(event.target.value)} />
         <div className = "friends_add">
             <form onSubmit={handleSubmit}>
                 <input placeholder="Add a Friend by Nickname" value={input} onChange={handleChange} />

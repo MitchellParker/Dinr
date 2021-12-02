@@ -66,7 +66,10 @@ router.post("/register", (req, res) => {
                     error: err
                 })
             });
-        res.status(201).json(newUser);
+        res.status(201).send({
+            message: "Account created successfully, you can now login",
+            newUser: newUser
+        });
     })
 });
 
