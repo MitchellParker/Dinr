@@ -2,26 +2,26 @@
 
 ## .env file
 
-This step is very important, the project doesn't work without it.
-Create a file: /backend/.env and add this line to it:
+This step is very important, the project doesn't work without it.\
+Create a file: /backend/.env and add this line to it:\
 DB_URI= mongodb+srv://admin:hunter2@cluster0.ljdnu.mongodb.net/dinr?retryWrites=true&w=majority
 
-It links the project to our mongoDB database. I believe you wouldn't \
-put this in the repository normally, it't necessary for grading purposes.
+It links the project to our mongoDB database. I believe you wouldn't
+put this in the repository normally, but it's necessary for grading purposes.
 
 ## Installing dependencies
 
-In case it is not obvious by the package.js, this app needs several node_modules.\
+In case it is not obvious by the package.js, this app needs several node_modules.
 Install them with "npm install" in the project directory
 
 ## Starting the server
 
-Start the server with "npm start" in the project directory.\
+Start the server with "npm start" in the project directory.
 *This will hog the terminal*
 
 Then, you can connect to it with your browser by navigating to "http://localhost:3001"
 
-Also if you want to provide a publicly accessible url, in a new terminal \
+Also if you want to provide a publicly accessible url, in a new terminal
 use "npx localtunnel --port 3001" and share the url that gives you.
 
 # Getting Started with Create React App
@@ -36,42 +36,42 @@ In the project directory, you can run:
 
 This is the 'production' version of the project.
 
-Builds and runs the app. Must have dependencies installed and .env to work.\
+Builds and runs the app. Must have dependencies installed and .env to work.
 Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 ### `npx localtunnel --port 3001`
 
 Creates a public url so anyone can connect to your local version.
 
-First do "npm start" to start the server. Once that is running, \
-Open another terminal and run this command. 
-It will spit out a link anyone can connect to.
-This only works with \
-"npm start", so do not try to use it with "start-server" and "start-client" \
+First do "npm start" to start the server. Once that is running,
+Open another terminal and run this command.
+It will spit out a link anyone can connect to.\
+This only works with
+"npm start", so do not try to use it with "start-server" and "start-client"
 because it will not work.
 
 ### `npm run start-server`
 
 Development express server
 
-Runs just the express server on port 3001. Needs .env of course.
-Don't try to view this in your browser directly, it will serve \
-The most recent production build of the react app, which isn't \
-necessarily what you want.
-To see development changes in real time, \
-use this with "npm run start-client" in a different terminal, \
+Runs just the express server on port 3001. Needs .env of course.\
+Don't try to view this in your browser directly, it will serve
+The most recent production build of the react app, which isn't
+necessarily what you want.\
+To see development changes in real time,
+use this with "npm run start-client" in a different terminal,
 and connect to that instead.
 
 ### `npm run start-client`
 
 Development React client
 
-Runs just the React app on port 3000. Connect to this at \
-"http://localhost:3000"
-Pretty much useless without "npm run start-server", \
+Runs just the React app on port 3000. Connect to this at
+"http://localhost:3000"\
+Pretty much useless without "npm run start-server",
 seeing as you need access to the backend to login.
-To see your development changes in real time, \
-use this with "npm run start-server" in a different terminal, \
+To see your development changes in real time,
+use this with "npm run start-server" in a different terminal,
 and be sure to connect to this one on port 3000.
 
 ### `npm test`
