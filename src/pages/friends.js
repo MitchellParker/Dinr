@@ -109,7 +109,7 @@ const Friends = () =>{
     useEffect(() => {
         getUserDiningChoices();
         getFriendListroute();
-    });
+    }, []);
 
     // get friends list
     const [friendlist, getFriendList] = useState([]);
@@ -125,7 +125,7 @@ const Friends = () =>{
 
     useEffect(() => {
         getFriendListroute();
-    })
+    }, [])
 
     // get list of usernames
     const [UserNameList, getUserNameList] = useState([]);
