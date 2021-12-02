@@ -1,3 +1,12 @@
+# Dinr
+
+A Fall 2021 CS35L group project made by:\
+Anmolpreet Kaur - anmolgrewal@g.ucla.edu\
+Aakarsh Anand - aanand2@g.ucla.edu\
+Lam Hoang - lamhoang1213@ucla.edu\
+Lucian Li - lucianli@g.ucla.edu\
+Mitchell Parker - mitchellparker@ucla.edu
+
 # IMPORTANT: HOW TO RUN THIS PROJECT
 
 ## .env file
